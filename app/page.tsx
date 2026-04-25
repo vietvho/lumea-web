@@ -3,9 +3,10 @@
 import { useState, FormEvent, useEffect } from "react";
 import { ArrowRight, Loader2, Link as LinkIcon, Sparkles } from "lucide-react";
 import { LogoIcon } from "./logo";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, SignInButton, useAuth } from "@clerk/nextjs";
 
 export default function Home() {
+  const { isSignedIn, isLoaded } = useAuth();
   const [handle, setHandle] = useState("");
   const [status, setStatus] = useState<"idle" | "submitting" | "running" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -94,34 +95,55 @@ export default function Home() {
           Generate an AI-powered, meticulously designed landing page directly from an Instagram profile.
         </p>
 
-        <form onSubmit={handleSubmit} className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-[#ff3366] to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-          <div className="relative flex items-center bg-[#111116] rounded-2xl p-2 ring-1 ring-white/10 shadow-2xl transition-all focus-within:ring-[#ff3366]/50">
-            <div className="pl-4 pr-3 py-3 text-gray-500">
-              <LinkIcon className="w-5 h-5" />
-            </div>
-            <input
-              type="text"
-              placeholder="Instagram Handle (e.g. @zuck)"
-              value={handle}
-              onChange={(e) => setHandle(e.target.value)}
-              disabled={status === "submitting" || status === "running"}
-              className="flex-1 bg-transparent text-lg text-white placeholder-gray-500 focus:outline-none w-full disabled:opacity-50"
-            />
-            <button
-              type="submit"
-              suppressHydrationWarning
-              disabled={!handle.trim() || status === "submitting" || status === "running"}
-              className="ml-2 bg-gradient-to-r from-purple-500 to-[#ff3366] hover:from-purple-600 hover:to-[#ff1952] text-white p-3 rounded-xl font-semibold transition-all disabled:opacity-50 shadow-lg shrink-0 flex items-center justify-center w-12 h-12"
-            >
-              {(status === "submitting" || status === "running") ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <ArrowRight className="w-5 h-5" />
-              )}
-            </button>
+        {!isLoaded ? (
+          <div className="relative flex flex-col items-center bg-[#111116]/50 rounded-2xl p-12 ring-1 ring-white/5 backdrop-blur-sm">
+            <Loader2 className="w-8 h-8 text-[#ff3366] animate-spin" />
+            <p className="mt-4 text-gray-500 text-sm animate-pulse">Initializing engine...</p>
           </div>
-        </form>
+        ) : isSignedIn ? (
+          <form onSubmit={handleSubmit} className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-[#ff3366] to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative flex items-center bg-[#111116] rounded-2xl p-2 ring-1 ring-white/10 shadow-2xl transition-all focus-within:ring-[#ff3366]/50">
+              <div className="pl-4 pr-3 py-3 text-gray-500">
+                <LinkIcon className="w-5 h-5" />
+              </div>
+              <input
+                type="text"
+                placeholder="Instagram Handle (e.g. @zuck)"
+                value={handle}
+                onChange={(e) => setHandle(e.target.value)}
+                disabled={status === "submitting" || status === "running"}
+                className="flex-1 bg-transparent text-lg text-white placeholder-gray-500 focus:outline-none w-full disabled:opacity-50"
+              />
+              <button
+                type="submit"
+                suppressHydrationWarning
+                disabled={!handle.trim() || status === "submitting" || status === "running"}
+                className="ml-2 bg-gradient-to-r from-purple-500 to-[#ff3366] hover:from-purple-600 hover:to-[#ff1952] text-white p-3 rounded-xl font-semibold transition-all disabled:opacity-50 shadow-lg shrink-0 flex items-center justify-center w-12 h-12"
+              >
+                {(status === "submitting" || status === "running") ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <ArrowRight className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+          </form>
+        ) : (
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 via-[#ff3366] to-blue-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div className="relative flex flex-col items-center bg-[#111116] rounded-2xl p-8 ring-1 ring-white/10 shadow-2xl text-center">
+              <Sparkles className="w-10 h-10 text-[#ff3366] mb-4" />
+              <h2 className="text-xl font-bold mb-2">Ready to transform your brand?</h2>
+              <p className="text-gray-400 mb-6 font-medium text-sm">Sign in to generate your AI-powered landing page in seconds.</p>
+              <SignInButton mode="modal">
+                <button className="bg-gradient-to-r from-purple-500 to-[#ff3366] hover:from-purple-600 hover:to-[#ff1952] text-white px-8 py-3 rounded-xl font-extrabold transition-all shadow-lg active:scale-95">
+                  Get Started Now
+                </button>
+              </SignInButton>
+            </div>
+          </div>
+        )}
 
         {/* Progress Display */}
         {status === "running" && (
