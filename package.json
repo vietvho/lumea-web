@@ -12,7 +12,7 @@
     "@base-ui/react": "^1.4.1",
     "@clerk/nextjs": "^7.2.5",
     "@google/genai": "^1.50.1",
-    "@lumea/db": "*",
+    "@lumea/db": "git+https://${GITHUB_TOKEN}:x-oauth-basic@github.com/vietvho/lumea-db.gitt#path:db",
     "@tanstack/react-query": "^5.99.2",
     "@tanstack/react-query-devtools": "^5.99.2",
     "bullmq": "^5.75.2",
