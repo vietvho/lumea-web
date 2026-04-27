@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { db, sites } from '@lumea/db';
+import { db, sites } from '@vietvho/lumea-db';
 import { eq } from 'drizzle-orm';
 import { Camera, Link as LinkIcon, Sparkles } from 'lucide-react';
 import { getCache } from '@/lib/redis';
