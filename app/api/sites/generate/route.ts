@@ -3,8 +3,8 @@ import { jobQueue } from '@/lib/queue';
 import { getCache } from '@/lib/redis';
 import crypto from 'crypto';
 import { auth } from '@clerk/nextjs/server';
-import { db, sites } from '@lumea/db';
 import { eq, count } from 'drizzle-orm';
+import { db, sites } from '@vietvho/lumea-db';
 
 export async function POST(req: Request) {
   try {
