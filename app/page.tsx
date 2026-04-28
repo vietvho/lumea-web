@@ -11,6 +11,7 @@ export default function Home() {
   const [status, setStatus] = useState<"idle" | "submitting" | "running" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [progress, setProgress] = useState<{ step?: string; status?: string; message?: string; siteUrl?: string }>({});
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -203,7 +204,80 @@ export default function Home() {
           </div>
         )}
 
+        <section className="mt-12 bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl">
+          <h2 className="text-2xl font-bold text-white mb-4">FAQ</h2>
+
+          <div className="space-y-4 text-gray-300">
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+              <button
+                type="button"
+                onClick={() => setOpenFaqIndex(openFaqIndex === 0 ? null : 0)}
+                className="w-full flex items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]/60"
+              >
+                <span className="text-lg font-semibold text-white">Getting Started</span>
+                <span className="text-2xl text-purple-300">{openFaqIndex === 0 ? "−" : "+"}</span>
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${openFaqIndex === 0 ? "max-h-96" : "max-h-0"}`}>
+                <div className="px-5 pb-5 text-sm leading-6 text-gray-300">
+                  <ol className="list-decimal list-inside space-y-2">
+                    <li><strong>Register</strong> for an account.</li>
+                    <li><strong>Enter</strong> your Instagram handle (the text after @).</li>
+                    <li><strong>Generate</strong> and relax. Your demo will be ready in minutes.</li>
+                    <li><strong>Enjoy</strong> your personal profile.(Limit 2 pages per account)</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+              <button
+                type="button"
+                onClick={() => setOpenFaqIndex(openFaqIndex === 1 ? null : 1)}
+                className="w-full flex items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]/60"
+              >
+                <span className="text-lg font-semibold text-white">Is my page published?</span>
+                <span className="text-2xl text-purple-300">{openFaqIndex === 1 ? "−" : "+"}</span>
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${openFaqIndex === 1 ? "max-h-96" : "max-h-0"}`}>
+                <p className="px-5 pb-5 text-sm leading-7 text-gray-300">
+                  Your page is currently private and hidden from search engines while I fine-tune the engine. I’ve built the core logic to auto-generate high-performance blogs, landing pages, and social profiles. Now, This project is my current technical focus. I’m focused on expanding the template library to ensure a "better experience for every user." During this phase, I’m gathering feedback and making improvements. If you have any suggestions or encounter issues, please reach out to me directly at <a href="mailto:contact@lumeaengine.com" className="text-purple-400 hover:underline">vnbillio@gmail.com</a>.
+                </p>
+              </div>
+            </div>
+
+            <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+              <button
+                type="button"
+                onClick={() => setOpenFaqIndex(openFaqIndex === 2 ? null : 2)}
+                className="w-full flex items-center justify-between gap-4 px-5 py-5 text-left transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff3366]/60"
+              >
+                <span className="text-lg font-semibold text-white">Let’s Build & Grow Together</span>
+                <span className="text-2xl text-purple-300">{openFaqIndex === 2 ? "−" : "+"}</span>
+              </button>
+              <div className={`overflow-hidden transition-all duration-300 ${openFaqIndex === 2 ? "max-h-96" : "max-h-0"}`}>
+                <p className="px-5 pb-5 text-sm leading-7 text-gray-300">
+                  I’m building this engine in public as a showcase of what’s possible with high-performance AI automation.
+
+                  Beyond the demo, my focus is turning high-potential ideas into scalable, production-ready products.
+
+                  Whether you’re working on something that complements this engine—or tackling a completely different problem where execution is the bottleneck—I’m interested.
+
+                  If you have a clear “What” and “Why,” I can help you deliver the “How.”
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <footer className="absolute z-20 bottom-6 left-6 right-6 flex flex-col-reverse items-center justify-between gap-4 text-xs text-gray-400 sm:flex-row sm:text-sm">
+        <p className="text-left">© {new Date().getFullYear()} Lumea Engine. All rights reserved.</p>
+        <div className="flex items-center gap-4">
+          <a href="/terms" className="hover:text-white transition-colors">Terms</a>
+          <span className="text-white/20">•</span>
+          <a href="/privacy" className="hover:text-white transition-colors">Policy</a>
+        </div>
+      </footer>
     </div>
   );
 }
