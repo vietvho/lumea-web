@@ -51,7 +51,7 @@ export default async function HomePage() {
                 Is my page published?
               </summary>
               <div className="px-5 pb-5 text-sm leading-7 text-gray-300">
-                Your page is currently private and hidden from search engines while I fine-tune the engine. I’ve built the core logic to auto-generate high-performance blogs, landing pages, and social profiles. Now, this project is my current technical focus. I’m focused on expanding the template library to ensure a "better experience for every user." During this phase, I’m gathering feedback and making improvements. If you have any suggestions or encounter issues, please reach out to me directly at <a href="mailto:contact@lumeaengine.com" className="text-purple-400 hover:underline">contact@lumeaengine.com</a>.
+                Your page is currently private and hidden from search engines while I fine-tune the engine. I’ve built the core logic to auto-generate high-performance blogs, landing pages, and social profiles. Now, this project is my current technical focus. I’m focused on expanding the template library to ensure a "better experience for every user." During this phase, I’m gathering feedback and making improvements. If you have any suggestions or encounter issues, please reach out to me directly at <a href="mailto:vnbillio@gmail.com" className="text-purple-400 hover:underline">vnbillio@gmail.com</a>.
               </div>
             </details>
 
@@ -60,7 +60,13 @@ export default async function HomePage() {
                 Let’s Build & Grow Together
               </summary>
               <div className="px-5 pb-5 text-sm leading-7 text-gray-300">
-                I’m building this engine in public as a showcase of what’s possible with high-performance AI automation. However, my true passion is transforming high-potential ideas into scalable products. Whether you have a vision that complements this engine, or an entirely different problem that needs a founding-level technical partner, I want to hear it. I’m looking for strategic collaborators to co-define new ventures and share in the success. If you have the "What" and the "Why," I have the "How."
+              I’m building this engine in public as a showcase of what’s possible with high-performance AI automation.
+
+              Beyond the demo, my focus is turning high-potential ideas into scalable, production-ready products.
+
+              Whether you’re working on something that complements this engine—or tackling a completely different problem where execution is the bottleneck—I’m interested.
+
+              If you have a clear “What” and “Why,” I can help you deliver the “How.”
               </div>
             </details>
           </div>
