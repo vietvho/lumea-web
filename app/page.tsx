@@ -1,10 +1,20 @@
 import HomeClient from "../components/HomeClient";
 import { LogoIcon } from "../app/logo";
 import { auth } from "@clerk/nextjs/server";
+import { db, sites, eq, desc } from "@vietvho/lumea-db";
 
 export default async function HomePage() {
   const { userId } = await auth();
   const isSignedIn = Boolean(userId);
+
+  let userSites: typeof sites.$inferSelect[] = [];
+  if (userId) {
+    userSites = await db
+      .select()
+      .from(sites)
+      .where(eq(sites.userId, userId))
+      .orderBy(desc(sites.createdAt));
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0a0a0c] text-white p-6 selection:bg-[#ff3366] selection:text-white font-sans relative overflow-hidden">
@@ -25,6 +35,23 @@ export default async function HomePage() {
         <p className="text-gray-400 text-center text-lg mb-12 font-medium">
           Generate an AI-powered, meticulously designed landing page directly from an Instagram profile.
         </p>
+
+        {userId && userSites.length > 0 && (
+          <div className="mb-12 flex flex-col items-center">
+            <h2 className="text-xl font-semibold text-white mb-4">Your Pages</h2>
+            <div className="flex flex-wrap gap-4 justify-center w-full">
+              {userSites.map((site) => (
+                <a
+                  key={site.id}
+                  href={`/${site.slug}`}
+                  className="px-6 py-3 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-[#ff3366]/50 transition-all text-white font-medium shadow-lg w-full sm:w-auto text-center"
+                >
+                  @{site.slug}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         <HomeClient initialSignedIn={isSignedIn} />
 
