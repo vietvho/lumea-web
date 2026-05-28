@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  transpilePackages: ["@vietvho/lumea-db"],
+
 };
 
 export default nextConfig;
